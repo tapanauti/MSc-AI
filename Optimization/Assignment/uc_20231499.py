@@ -83,6 +83,7 @@ def main(gnt):
         result = solve(solver)
         #print_sol(solver,result,var_list,con_list)
         prt(solver,objt)
+        
    
 
     return{'var_list':var_list,
