@@ -30,6 +30,7 @@ def const(gnt,solver,var_list,hr):
     for i in range(0,len(dmd)):
         if hr == i+1:
             con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[3] + var_list[4] + var_list[5] + var_list[6] + var_list[7] + var_list[8]+ var_list[9] == dmd[i])
+            
        
       
     return con_list
@@ -48,20 +49,20 @@ def solve(solver):
     result = solver.Solve()
     return result
 
-def print_sol(solver,result,var_list,con_list):
-    if result == solver.OPTIMAL:
-        print('success')
-        print(('optimal objective = %f' % solver.Objective().Value()))
-    elif result == solver.INFEASIBLE:
-        print('No solution')
-    elif result == solver.POSSIBLE_OVERFLOW:
-        print('Large Inputs')
+# def print_sol(solver,result,var_list,con_list):
+#     if result == solver.OPTIMAL:
+#         print('success')
+#         print(('optimal objective = %f' % solver.Objective().Value()))
+#     elif result == solver.INFEASIBLE:
+#         print('No solution')
+#     elif result == solver.POSSIBLE_OVERFLOW:
+#         print('Large Inputs')
 
-    var_sum=0
-    for var in var_list:
-        print(('%s = %f ' % (var.name(), var.solution_value())))
-        var_sum+=var.solution_value()
-    print(('variable sum = %f' % var_sum))
+#     var_sum=0
+#     for var in var_list:
+#         print(('%s = %f ' % (var.name(), var.solution_value())))
+#         var_sum+=var.solution_value()
+#     print(('variable sum = %f' % var_sum))
 
 def prt(solver,objt):
     for v in solver.variables():
