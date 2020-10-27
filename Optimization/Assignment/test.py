@@ -27,7 +27,7 @@ def const(gnt,solver,var_list):
     con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[143] + var_list[144] + var_list[145] + var_list[146] + var_list[147] + var_list[148]+ var_list[149] == dmd[20])
     con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[150] + var_list[151] + var_list[152] + var_list[153] + var_list[154] + var_list[155]+ var_list[156] == dmd[21])
     con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[157] + var_list[158] + var_list[159] + var_list[160] + var_list[161] + var_list[162]+ var_list[163] == dmd[22])
-    con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[66] + var_list[164] + var_list[165] + var_list[166] + var_list[167] + var_list[168]+ var_list[169] == dmd[23])
+    con_list = solver.Add(var_list[0] + var_list[1] + var_list[2]+ var_list[164] + var_list[165] + var_list[166] + var_list[167] + var_list[168] + var_list[169]+ var_list[170] == dmd[23])
     return con_list
 
 
