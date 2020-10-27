@@ -1,0 +1,9 @@
+What about the websites in which we cannot define a single context or are not context specific? In this case another question arises about the ethicality of the website providing the data, who decides what context the website is refering to and what if the contexual integrity provided by the website is misleading and falsy.
+
+In conclusion the writer mentions her suggestion about context-based rules to be in order to protect the privacy and give personal preferences to maintain a robust informed consent solution. Here the writer fails to clearly give the idea about what context based is and how to define which website  gives which context. 
+
+In one example (pg 44) she mentions about the overview of the website asin the offering from a website if it is a university or bank likewise context but I think that it is baseless and to define such a context for websites such as facebook or social media platforms as to what exactly the structure is, is in retrun not going to help reduce the consent documentation and neither is going to reduce the privacy policy or permissions that user needs to sign. What i think, the data collected is far more for users to select individually to give permission to what is to be shared and what not.
+
+What the companies can do is highlight the data that is going to be captured while one is still browsing the website and in  the end ask for persimission to store the data, here one drawback will be of dynamic data storing. 
+
+Context specific information doesn't make sense one cannot justify to the nature, it is too manupulative for the websites and it will not help in reducing the privacy constraints nor the policies.

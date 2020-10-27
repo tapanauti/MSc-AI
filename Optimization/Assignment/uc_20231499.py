@@ -1,4 +1,4 @@
-from ortools.linear_solver import pywraplp
+from ortools.linear_solver import pywraplp, _pywraplp
 
 
 
@@ -49,20 +49,6 @@ def solve(solver):
     result = solver.Solve()
     return result
 
-# def print_sol(solver,result,var_list,con_list):
-#     if result == solver.OPTIMAL:
-#         print('success')
-#         print(('optimal objective = %f' % solver.Objective().Value()))
-#     elif result == solver.INFEASIBLE:
-#         print('No solution')
-#     elif result == solver.POSSIBLE_OVERFLOW:
-#         print('Large Inputs')
-
-#     var_sum=0
-#     for var in var_list:
-#         print(('%s = %f ' % (var.name(), var.solution_value())))
-#         var_sum+=var.solution_value()
-#     print(('variable sum = %f' % var_sum))
 
 def prt(solver,objt):
     for v in solver.variables():
@@ -70,7 +56,7 @@ def prt(solver,objt):
             
     print(f"Optimal objective value = {objt.Value():.5}")
 
-    
+   
         
 def main(gnt):
 
@@ -81,9 +67,11 @@ def main(gnt):
         con_list = const(gnt,solver,var_list,hr)
         objt = obj(hr,gnt,solver,var_list,con_list)
         result = solve(solver)
-        #print_sol(solver,result,var_list,con_list)
+        print_sol(solver,result,var_list,con_list)
         prt(solver,objt)
-        
+        solver.Clear()
+
+       
    
 
     return{'var_list':var_list,
