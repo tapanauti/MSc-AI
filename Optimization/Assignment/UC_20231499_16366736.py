@@ -38,6 +38,7 @@ def main(gnt,dmd):
     J.extend([solver.NumVar(0,10,f'J{i}') for i in range (17,20)])
     J.extend([solver.NumVar(0,0,f'J{i}') for i in range (20,25)])
 
+
     var_list.append(A)
     var_list.append(B)
     var_list.append(C)
@@ -50,7 +51,7 @@ def main(gnt,dmd):
     var_list.append(J)
     
     for j in range (0,24):
-        print(var_list[0][j])
+        
         solver.Add(var_list[0][j] + var_list[1][j] + var_list[2][j] + var_list[3][j] + var_list[4] + var_list[5] + var_list[6] + var_list[7][j] + var_list[8][j] + var_list[9][j]== dmd[j])
            
 
