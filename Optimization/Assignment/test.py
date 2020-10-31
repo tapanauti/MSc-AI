@@ -59,7 +59,6 @@ def main(gnt,dmd):
     solver = pywraplp.Solver('Generator',pywraplp.Solver.GLOP_LINEAR_PROGRAMMING)
 	
     var_list = [solver.NumVar(gnt[z][1],gnt[z][2],str(gnt[z][0])) for z in range (0,len(gnt))]
-    print(var_list)
     con_list = const(gnt,solver,var_list)   
     objt = obj(gnt,solver,var_list,con_list)
     result = solve(solver)

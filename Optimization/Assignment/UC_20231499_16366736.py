@@ -10,7 +10,7 @@ def prt(solver,objt):
     for v in solver.variables():
         print(f"{v.name()} = {v.solution_value():.5}; coefficient {objt.GetCoefficient(v):.5}")
             
-    print(f"Optimal objective value = {objt.Value():.5}")
+    print(f"Optimal objective value = {objt.Value():.8}")
 
    
         
@@ -54,7 +54,7 @@ def main(gnt,dmd):
         
         solver.Add(var_list[0][j] + var_list[1][j] + var_list[2][j] + var_list[3][j] + var_list[4] + var_list[5] + var_list[6] + var_list[7][j] + var_list[8][j] + var_list[9][j]== dmd[j])
            
-
+    
 
 
     objt = solver.Objective()
@@ -62,9 +62,9 @@ def main(gnt,dmd):
         if(i<4 or i>6):
             for j in range (0,24):
                 objt.SetCoefficient(var_list[i][j],gnt[i][3])
-    objt.SetCoefficient(var_list[4],gnt[4][3])
-    objt.SetCoefficient(var_list[5],gnt[5][3])
-    objt.SetCoefficient(var_list[6],gnt[6][3])
+    objt.SetCoefficient(var_list[4],24*(gnt[4][3]))
+    objt.SetCoefficient(var_list[5],24*(gnt[5][3]))
+    objt.SetCoefficient(var_list[6],24*(gnt[6][3]))
     objt.SetMinimization()   
     
     
