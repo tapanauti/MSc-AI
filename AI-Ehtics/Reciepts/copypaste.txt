@@ -1,0 +1,11 @@
+Even after RRI there might be some cases where there has been a breach or misuse of Innovation or can harm in some way, in such scenario who is responsible? 
+
+First, RRI takes input from different stakeholders (11.3.2 pg. 208) who have their own opinions and views, author says all that diversity will be observed in repository (11.3.31 pg. 213), but its people's opinion we are talking about. Who will decide what's wrong and what's right and how? 
+
+In an interview with a researcher, he mentions about ball throwing robot.(pg. 210)Innovation after some time can allow the robot to throw a ball 1 km, In this statement it is not taken into account that the same robot could be used to through a bomb but can also act as a relief robot in affected areas, but who should take the responsibility of the mishaps in case of bombings? 
+
+Here we can see that a lot of conflict is there which the meta-responsibility cannot handle. 
+
+Author in his recommendation for policy(11.3.3.1) states that there can be regulatory framework but will it assure success is not mentioned and I think that forum for stakeholders will in turn just add useless opinions which will add in the repository and be of no use . 
+
+What I think is that after all the risks have been justified their severity towards everything should be analyzed and a decision should be made whether the innovation is really the need of the hour.
