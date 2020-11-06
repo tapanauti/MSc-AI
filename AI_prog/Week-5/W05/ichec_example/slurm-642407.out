@@ -1,0 +1,30 @@
+	 To load the default (base) conda environment, for python 2, use the following command. 
+		 source activate
+ 
+	 To list other available environments, use the following command
+		 conda info --envs
+ 
+	 To load a non-default environment, e.g. for python3,  use the following command
+		 source activate python3
+ 
+Taskfarm started with 40 workers (40 per node).
+Taskfarm read 9 tasks from file 'taskfarm.sh'.
+/ichec/home/users/tapan/ichec_example/task-n2-id1-642407.1: line 3: syntax error: unexpected end of file
+/ichec/home/users/tapan/ichec_example/task-n2-id0-642407.0: line 3: syntax error: unexpected end of file
+/ichec/home/users/tapan/ichec_example/task-n2-id4-642407.4: line 3: syntax error: unexpected end of file
+/ichec/home/users/tapan/ichec_example/task-n2-id3-642407.3: line 3: syntax error: unexpected end of file
+/ichec/home/users/tapan/ichec_example/task-n2-id2-642407.2: line 3: syntax error: unexpected end of file
+'['/ichec/packages/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin//mpiexec', '-bootstrap', 'slurm', '-env', 'I_MPI_PIN_DOMAIN', 'node', '-n', '1', '-host', 'n2', '/usr/bin/numactl', '--physcpubind=3-3', '/ichec/home/users/tapan/ichec_example/task-n2-id3-642407.3']' killed by sig 2
+'['/ichec/packages/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin//mpiexec', '-bootstrap', 'slurm', '-env', 'I_MPI_PIN_DOMAIN', 'node', '-n', '1', '-host', 'n2', '/usr/bin/numactl', '--physcpubind=4-4', '/ichec/home/users/tapan/ichec_example/task-n2-id4-642407.4']' killed by sig 2
+'['/ichec/packages/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin//mpiexec', '-bootstrap', 'slurm', '-env', 'I_MPI_PIN_DOMAIN', 'node', '-n', '1', '-host', 'n2', '/usr/bin/numactl', '--physcpubind=0-0', '/ichec/home/users/tapan/ichec_example/task-n2-id0-642407.0']' killed by sig 2
+'['/ichec/packages/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin//mpiexec', '-bootstrap', 'slurm', '-env', 'I_MPI_PIN_DOMAIN', 'node', '-n', '1', '-host', 'n2', '/usr/bin/numactl', '--physcpubind=1-1', '/ichec/home/users/tapan/ichec_example/task-n2-id1-642407.1']' killed by sig 2
+'['/ichec/packages/intel/2018u4/compilers_and_libraries_2018.5.274/linux/mpi/intel64/bin//mpiexec', '-bootstrap', 'slurm', '-env', 'I_MPI_PIN_DOMAIN', 'node', '-n', '1', '-host', 'n2', '/usr/bin/numactl', '--physcpubind=2-2', '/ichec/home/users/tapan/ichec_example/task-n2-id2-642407.2']' killed by sig 2
+fruit_picking.py:34: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.axes().set_aspect('equal')
+fruit_picking.py:34: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.axes().set_aspect('equal')
+fruit_picking.py:34: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.axes().set_aspect('equal')
+fruit_picking.py:34: MatplotlibDeprecationWarning: Adding an axes using the same arguments as a previous axes currently reuses the earlier instance.  In a future version, a new instance will always be created and returned.  Meanwhile, this warning can be suppressed, and the future behavior ensured, by passing a unique label to each axes instance.
+  plt.axes().set_aspect('equal')
+Taskfarm completed all tasks.
