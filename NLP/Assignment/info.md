@@ -11,6 +11,7 @@ A concordance permits us to see words in context. For example, we saw that monst
 
 The term common\_contexts allows us to examine just the contexts that are shared by two or more words, such as monstrous and very. We have to enclose these words by square brackets as well as parentheses, and separate them with a comma:
 
+
 **text2.common_contexts(["monstrous", "very"])**
 
 most frequesnt words :
