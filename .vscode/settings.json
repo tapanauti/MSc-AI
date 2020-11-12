@@ -1,4 +1,4 @@
 {
-    "python.dataScience.jupyterServerURI": "local",
-    "wolf.disableHotModeWarning": true
+    "wolf.disableHotModeWarning": true,
+    "jupyter.jupyterServerType": "local"
 }
