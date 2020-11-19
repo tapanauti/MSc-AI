@@ -1,0 +1,21 @@
+# 20 runs using radom seed 0-19 
+python rw.py 0 
+python rw.py 1 
+python rw.py 2 
+python rw.py 3 
+python rw.py 4 
+python rw.py 5 
+python rw.py 6 
+python rw.py 7 
+python rw.py 8 
+python rw.py 9 
+python rw.py 10
+python rw.py 11 
+python rw.py 12 
+python rw.py 13 
+python rw.py 14 
+python rw.py 15 
+python rw.py 16 
+python rw.py 17 
+python rw.py 18 
+python rw.py 19 
