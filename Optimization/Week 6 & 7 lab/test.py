@@ -1,6 +1,5 @@
 import random
 import numpy as np
-import math
 import matplotlib.pyplot as plt
 from deap import benchmarks
 # function to optimize: takes in a list of decision variables, returns an objective value
@@ -13,15 +12,12 @@ def my_function(x):
     # return np.sum((((x[1:]**2.0) + (x[:-1]**2.0))**a)  * ((np.sin( 50 * (x[1:]**2.0) +((x[:-1]**2.0)**b))) + 1))
     return np.sum((x**2+x1**2)**0.25 * ((np.sin(50*(x**2+x1**2)**0.1))**2+1.0) for x, x1 in zip(x[1:], x[:-1]))
     #return np.sum(x[1:]*np.sin(math.sqrt(x[1:])))
-def rosenbrock(x): # test problem, hard
-    # from https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.optimize.rosen.html
-    return np.sum((100.0*(x - x1**2.0)**2.0 + (1 - x1)**2.0) for x,x1 in zip(x[1:],x[:-1]))
+
 
 def schaffer(x):
     return benchmarks.schaffer(x)[0]
 
-def schwefel(sol):
-    return benchmarks.schwefel(sol)[0]
+
 # function to perform (a very crude, stupid) optimization
 # bounds = lower and upper bounds for each decision variable (2D list)
 # NFE = number of function evaluations to perform
@@ -48,12 +44,12 @@ def optimize(bounds, NFE, f):
 #result = []
 # now let's try it...
 # (the Rosenbrock problem technically doesn't have "bounds", but we'll make some up..)
-bounds = [[-500,500],[-500,500],[-500,500],[-500,500],[-500,500],[-500,500]]
+bounds = [[-100,100], [-100,100 ],[-100,100 ],[-100,100 ],[-100,100 ],[-100,100 ]]
 #bounds = [[-1,5],[-1,5],[-1,5],[-1,5],[-1,5],[-1,5]]
 its = 50000
 for i in range (0,5):
     random.seed(i)  
-    x,history =optimize(bounds, its,schwefel)
+    x,history =optimize(bounds, its,schaffer)
 # print(history[-1][1])
 plt.plot(history[:, 0], history[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
@@ -61,8 +57,7 @@ plt.savefig("Random_plot.pdf")
 plt.close()
 #x,history = optimize(bounds, 50000,schaffer)
 for i in range(0,its):
-    mu = np.sum(np.mean(history[i][1]))
-    sigma = np.sum(np.var(history[i][1]))
-
-
+      mu = np.sum(np.mean(history[:,1]))
+      sigma = np.sum(np.var(history[:,1]))
+print(sigma)
 # it should be near best_f = 0.0 and best_x = [1,1], hopefully
