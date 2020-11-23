@@ -1,6 +1,6 @@
 import numpy as np
 import random
-from scipy.stats import multivariate_normal as MVN
+from scipy.stats import multivariate_normal as MVN,stats
 from sklearn.mixture import GaussianMixture
 import matplotlib.pyplot as plt
 
@@ -50,20 +50,26 @@ def rosenbrock(x): # test problem, hard
     # from https://docs.scipy.org/doc/scipy-0.15.1/reference/generated/scipy.optimize.rosen.html
     return np.sum(100.0*(x[1:] - x[:-1]**2.0)**2.0 + (1 - x[:-1])**2.0)
 
-
+def schaffer(x):
+    a = 0.25
+    b = 0.10
+    return np.sum((x[1:]**2.0 + x[:-1]**2.0)**a  * ((np.sin( 50 * (x[1:]**2.0 + x[:-1]**2.0)**b)) + 1))
 
 def EDA(f, init, estimate, sample, select, popsize, ngens):
     """Notice (in contrast to GA) select() now returns the
     complete set of parents, not one at a time."""
     pop = [init() for i in range(popsize)]
+    #print(pop)
     popfit = [f(x) for x in pop]
-    stats(0, popfit)
+    #print(popfit)
+    #stats(0, popfit)
     history = np.zeros((ngens, popsize, n))
     history[0] = np.array(pop)
     for gen in range(1, ngens):
         
         # discard the bad ones
         pop = select(pop, popfit)
+       # print(pop)
 
         # estimate a model...
         model = estimate(pop)
@@ -72,7 +78,7 @@ def EDA(f, init, estimate, sample, select, popsize, ngens):
         pop = sample(model, popsize)
         history[gen] = np.array(pop)
         popfit = [f(x) for x in pop]
-        stats(gen, popfit)
+       # stats(gen, popfit)
     return history
 
     
@@ -108,5 +114,11 @@ h = EDA(f,
     popsize,
     ngens
 )
+print(h)
+# plot(h)
+#print(real_init(5))
 
-plot(h)
+# estimate_diagonal()
+# estimate_full()
+# sample()
+# truncation_selection()
