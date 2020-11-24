@@ -1,6 +1,6 @@
 from pickle import NONE
 import cma
-from deap import benchmarks
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import plot
 
@@ -13,5 +13,11 @@ for i in range(0,4):
 
 
 cma.plot()
+data=[]
+with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
+    next(f)
+    data = np.loadtxt(f)
+plt.plot(data[:, 0], data[:, 4])
+plt.xlabel("Iteration"); plt.ylabel("Objective")
 plt.savefig('cma.pdf')
 plt.show()
