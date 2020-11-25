@@ -1,126 +1,111 @@
 from deap import benchmarks
+import random
 import numpy as np
-# # import pyswarms as ps
-# # from pyswarms.utils.functions import single_obj as fx
-# # from pyswarms.utils.plotters import plot_cost_history, plot_contour, plot_surface
-# import matplotlib.pyplot as plt
-# import random
-# # def schaffer(x):
-# #     a = 0.25
-# #     b = 0.10
-# #     np.sum((((x[1:]**2.0) + (x[:-1]**2.0))**a)  * ((np.sin( 50 * (x[1:]**2.0) +((x[:-1]**2.0)**b))) + 1))
-# #     return benchmarks.schaffer(x)[0]
-
-
-# # Set-up optimizer
-# # for i in range(0,4):
-# #     random.seed(i)
-# options = {'c1':1, 'c2':2, 'w':0.5}
-# optimizer = ps.single.GlobalBestPSO(n_particles = 6, dimensions = 2,options=options)
-# optimizer.optimize(fx.schaffer2, iters=50000)
-# # Plot the cost
-# plot_cost_history(optimizer.cost_history)
-# plt.show()
-
 from opfunu.cec_basic.cec2014_nobias import *
 from mealpy.swarm_based.PSO import BasePSO,PPSO,PSO_W,HPSO_TVA
 from mealpy.swarm_based.GWO import BaseGWO, RW_GWO
-from mealpy.swarm_based.WOA import BaseWOA
 import matplotlib.pyplot as plt
+
 def schaffer(x):
-    # a = 0.25
-    # b = 0.10
-    # np.sum((((x[1:]**2.0) + (x[:-1]**2.0))**a)  * ((np.sin( 50 * (x[1:]**2.0) +((x[:-1]**2.0)**b))) + 1))
     return benchmarks.schaffer(x)[0]
 
 obj_func = schaffer
 lb = [-100]
 ub = [100]
-
-problem_size = 6
+problem_size = 6 # decision variables
 batch_size = 2
 verbose = True
+# these being population based algorithms here total iterations are gen * population size , so epoch * pop_size gives 50000 iterations - confirmed the setting from all algorithms source code available at -
+# 'https://github.com/thieu1995/mealpy '
 epoch = 500
 pop_size = 100
 res = []
 
-md1 = BasePSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
-#print(md1.solution[0])
+# The original version of particle swarm optimisation
+for i in range (1,5):
+    random.seed(i)        
+    md1 = BasePSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
+print(md1.solution[1]) # prints the optimal solution
+for i in range(0,epoch):
+    res.append([i,md1.loss_train[i]])
+res = np.array(res)
+plt.plot(res[:, 0], res[:, 1])
+plt.xlabel("Iteration"); plt.ylabel("Objective")
+plt.savefig("basepso.pdf")
+plt.close()
+
+# Simple and effective variant of PSO: Phaser Partcle Swarm Optimisation -  in this while creating list instead of uniform nature we take many multipe random geometric constants and add them to the best positions form the list.
+# the source code for all these variants  is availbale at ' https://github.com/thieu1995/mealpy/blob/master/mealpy/swarm_based/PSO.py'
+for i in range (1,5):
+    random.seed(i) 
+    md1 = PPSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
 print(md1.solution[1])
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
 res = np.array(res)
 plt.plot(res[:, 0], res[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
+plt.savefig("ppso.pdf")
 plt.close()
 
-
-md1 = PPSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
+# Another interesting variant of Phaser PSO where for the initial list another temporary variant is taken and that is multiplied with each element list to get the final list.
+# source code for the same avialable in the previously mentioned lin.
+for i in range (1,5):
+    random.seed(i) 
+    md1 = PSO_W(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
 print(md1.solution[1])
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
 res = np.array(res)
 plt.plot(res[:, 0], res[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
+plt.savefig("ppso_w.pdf")
 plt.close()
 
-
-md1 = PSO_W(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
+# This one was by far the most iteresting implementation for PSO , it is a hierarchical PSO with junping time- varying accelerations,
+#  (such a fancy name: but is it really that worth of variant, chcek the answer and plot to find out ), in this algorithm the acceleration coefficients take the absolute value with the inertia weights and then this is 
+# multiplied with uniform list intials to form a new list which is the mean of acceleration constants. ( Didn't get what i'm trying to say check the source code(mentioned above link above) for a peek at this algorithm.)
+for i in range (1,5):
+    random.seed(i) 
+    md1 = HPSO_TVA(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
 print(md1.solution[1])
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
 res = np.array(res)
 plt.plot(res[:, 0], res[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
+plt.savefig("hpso_tva.pdf")
 plt.close()
 
-
-md1 = HPSO_TVA(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
+# This the basic random grey wolf optimisation.
+for i in range (1,5):
+    random.seed(i) 
+    md1 = BaseGWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
 print(md1.solution[1])
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
 res = np.array(res)
 plt.plot(res[:, 0], res[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
+plt.savefig("gwo.pdf")
 plt.close()
 
-md1 = BaseGWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
+# this is novel  random walk grey wolf optimsation variant which is speculated to give less optimised results than that of GWO, let's check result to find the truth.
+for i in range (1,5):
+    random.seed(i) 
+    md1 = RW_GWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
+    best_pos1, best_fit1, list_loss1 = md1.train()
 print(md1.solution[1])
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
 res = np.array(res)
 plt.plot(res[:, 0], res[:, 1])
 plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
+plt.savefig("rw_gwo.pdf")
 plt.close()
 
-md1 = RW_GWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
-print(md1.solution[1])
-for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
-plt.close()
-
-md1 = BaseWOA(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
-best_pos1, best_fit1, list_loss1 = md1.train()
-print(md1.solution[1])
-for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("pso_1.pdf")
-plt.close()
