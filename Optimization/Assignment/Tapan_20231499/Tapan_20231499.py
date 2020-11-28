@@ -57,16 +57,16 @@ its = 50000 # no of iterations
 for i in range (0,5):
       np.random.seed(i)  
       x,history =optimize(bounds, its,schaffer)
-plt.plot(history[:, 0], history[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("Random_plot.pdf")
-plt.close()
+# plt.plot(history[:, 0], history[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("Random_plot.pdf")
+# plt.close()
 
 # getting the mean and standard deviation for results and comparison.
 for i in range(0,its):
       mu = np.sum(np.mean(history[:,1])) # mean
       sigma = np.sum(np.var(history[:,1])) # stnadard deviation
-print(mu,sigma)
+print('best cost : ',mu,'SD : ',sigma)
 
 
 #------------------------------------------------------------------------------------- CMA -------------------------------------------------------------------------------- 
@@ -75,51 +75,51 @@ print(mu,sigma)
 # Basic cma -es but changes in hyperparameters like the initial mean being  a randomised value between bounds and difference of bounds and the sigma being 2/5 of bound.
 for i in range(1,5):
       np.random.seed(i)
-      option = {'seed': i} # to hide console print every run use 'verb_disp':0 inside this option.
+      option = {'seed': i,'verb_disp':0} # to  console print every run use 'verb_disp':1 inside this option.
       mean = (-100 + (np.random.rand() * 200))
       es = cma.CMAEvolutionStrategy(6*[mean],40,option) # for eavery decision variable initialsing the same value of mean.
       es.optimize(cma.ff.schaffer,iterations =50000 ) # cma has inbulit birary of function (ff), schaffer function is taken from it and used 
       print(es.result_pretty())
 #the cms stores all the genrated reports in a .dat file, so using one of the 'fit.dat' file for factorial design experiment.
-data=[]
-with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
-  next(f)
-  data = np.loadtxt(f)
-plt.plot(data[:, 0], data[:, 4])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig('cma_variant.pdf')
-plt.show()
+# data=[]
+# with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
+#   next(f)
+#   data = np.loadtxt(f)
+# plt.plot(data[:, 0], data[:, 4])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig('cma_variant.pdf')
+# plt.show()
 
 # The original basic cma implementation with initial mean as 0 and sigma as 1.
 for i in range(1,5):
       np.random.seed(i)
-      option = {'seed': i}
+      option = {'seed': i,'verb_disp':0}
       es = cma.CMAEvolutionStrategy(6*[0],1,option)
       es.optimize(cma.ff.schaffer,iterations =50000 )
       print(es.result_pretty())
-data=[]
-with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
-  next(f)
-  data = np.loadtxt(f)
-plt.plot(data[:, 0], data[:, 4])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig('basecma.pdf')
-plt.show()
+# data=[]
+# with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
+#   next(f)
+#   data = np.loadtxt(f)
+# plt.plot(data[:, 0], data[:, 4])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig('basecma.pdf')
+# #plt.show()
 
 # The cma variation using bipop strategy  which progressively increments the population , here i'm taking restarts as 1 as i dont want many runs for the function.(as 4 runs already taking place due to seed.)
-for i in range(1,10):
+for i in range(1,5):
       np.random.seed(i)
-      options = {'seed':i, 'verb_time':0, 'ftarget': 1e-8, 'maxfevals': 5e4}
+      options = {'seed':i, 'verb_time':0, 'ftarget': 1e-8, 'maxfevals': 5e4,'verb_disp':0}
       res = cma.fmin(schaffer, '2. * np.random.rand(6) - 1', 0.5,options, bipop=True)
       print(res[1])
-data=[]
-with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
-  next(f)
-  data = np.loadtxt(f)
-plt.plot(data[:, 0], data[:, 4])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig('bipopcma.pdf')
-plt.show()
+# data=[]
+# with open (r"C:\\Users\\CS-Guest-2\\Desktop\\Nuig\\MSc_AI\\outcmaes\\fit.dat") as f:
+#   next(f)
+#   data = np.loadtxt(f)
+# plt.plot(data[:, 0], data[:, 4])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig('bipopcma.pdf')
+# #plt.show()
 
 
 # -------------------------------------------------------------------------------------- PSO -------------------------------------------------------------------------------------
@@ -142,100 +142,106 @@ for i in range (1,5):
     np.random.seed(i)        
     md1 = BasePSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
     res.append([i,md1.loss_train[i]])
-# sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-# print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("basepso.pdf")
-plt.close()
+sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
+print('sd : ',sd)
+# uncomment for plotting
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("basepso.pdf")
+# plt.close()
 
 #Simple and effective variant of PSO: Phaser Partcle Swarm Optimisation -  in this while creating list instead of uniform nature we take many multipe random geometric constants and add them to the best positions form the list.
 #the source code for all these variants  is availbale at ' https://github.com/thieu1995/mealpy/blob/master/mealpy/swarm_based/PSO.py'
+resppso = []
 for i in range (1,5):
     np.random.seed(i) 
     md1 = PPSO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-# sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-# print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("ppso.pdf")
-plt.close()
+    resppso.append([i,md1.loss_train[i]])
+sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
+print('sd : ',sd)
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("ppso.pdf")
+# plt.close()
 
 # Another interesting variant of Phaser PSO where for the initial list another temporary variant is taken and that is multiplied with each element list to get the final list.
 # source code for the same avialable in the previously mentioned link.
+respso_w = []
 for i in range (1,5):
     np.random.seed(i) 
     md1 = PSO_W(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-# sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-# print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("ppso_w_demo.pdf")
-plt.close()
+    respso_w.append([i,md1.loss_train[i]])
+sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
+print('sd : ',sd)
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("ppso_w_demo.pdf")
+# plt.close()
 
 # This one was by far the most iteresting implementation for PSO , it is a hierarchical PSO with junping time- varying accelerations,
 #  (such a fancy name: but is it really that worth of variant, chcek the answer and plot to find out ), in this algorithm the acceleration coefficients take the absolute value with the inertia weights and then this is 
 # multiplied with uniform list intials to form a new list which is the mean of acceleration constants. ( Didn't get what i'm trying to say check the source code(mentioned above link above) for a peek at this algorithm.)
-for i in range (1,10):
+reshpso = []
+for i in range (1,5):
     np.random.seed(i) 
     md1 = HPSO_TVA(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-# sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-# print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("hpso_tva.pdf")
-plt.close()
+    reshpso.append([i,md1.loss_train[i]])
+sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
+print('sd : ',sd)
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("hpso_tva.pdf")
+# plt.close()
 
 # This the basic random grey wolf optimisation.
+resgwo = []
 for i in range (1,5):
     np.random.seed(i) 
     md1 = BaseGWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
-# sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-# print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("gwo.pdf")
-plt.close()
+    resgwo.append([i,md1.loss_train[i]])
+sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
+print('sd : ',sd)
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("gwo.pdf")
+# plt.close()
 
 # this is novel  random walk grey wolf optimsation variant which is speculated to give less optimised results than that of GWO, let's check result to find the truth.
+resrwgwo = []
 for i in range (1,5):
     np.random.seed(i) 
     md1 = RW_GWO(obj_func, lb, ub, problem_size, batch_size, verbose, epoch, pop_size)
     best_pos1, best_fit1, list_loss1 = md1.train()
-    print(md1.solution[1]) # prints the optimal solution
+    print('best cost : ',md1.solution[1]) # prints the optimal solution
 for i in range(0,epoch):
-    res.append([i,md1.loss_train[i]])
+    resrwgwo.append([i,md1.loss_train[i]])
 sd = np.sum(np.var(md1.loss_train)) # uncomment if you want or print the sigma
-print(sd)
-res = np.array(res)
-plt.plot(res[:, 0], res[:, 1])
-plt.xlabel("Iteration"); plt.ylabel("Objective")
-plt.savefig("rw_gwo.pdf")
-plt.close()
+print('sd : ',sd)
+# res = np.array(res)
+# plt.plot(res[:, 0], res[:, 1])
+# plt.xlabel("Iteration"); plt.ylabel("Objective")
+# plt.savefig("rw_gwo.pdf")
+# plt.close()
 
 
 #----------------------------------------------------------------------------------------------------------- END -----------------------------------------------------------------------------------------
